@@ -18,6 +18,21 @@ class RestaurantCell: UITableViewCell {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var restaurantImage: UIImageView!
     
+    // Assign the values to above variables
+    var r: Restaurant! { // whenever r changes, this will be called
+        didSet {
+            nameLabel.text = r.name
+            categoryLabel.text = r.mainCategory
+            phoneLabel.text = r.phone
+            reviewsLabel.text = String(r.reviews) + "reviews" // EX: "0 reviews" or "42 reviews"
+            // Set images
+            restaurantImage.af.setImage(withURL: r.imageURL!)
+            restaurantImage.layer.cornerRadius = 10
+            restaurantImage.clipsToBounds = true
+            starsImage.image = Stars.dict[r.rating]!
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
